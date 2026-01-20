@@ -627,6 +627,8 @@ body {
     position: relative;
     height: 300px;
     width: 100%;
+    max-width: 450px; /* Giới hạn chiều rộng trên máy tính */
+    margin: 0 auto;   /* Căn giữa */
 }
 
 /* Summary Section */
@@ -1164,6 +1166,7 @@ body {
     
     .chart-container {
         height: 250px;
+        max-width: 100%; /* Full màn hình trên điện thoại */
     }
     
     /* Summary Mobile */
