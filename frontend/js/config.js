@@ -1,3 +1,3 @@
 const CONFIG = {
-  API_URL: 'https://expense-manager-api.onrender.com/api'
+  API_URL: 'https://home-api-s3ma.onrender.com/api'
 };
