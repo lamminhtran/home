@@ -56,6 +56,20 @@ body {
   #heading {
     font-size: 1.3rem;
   }
+
+  /* Bigger inputs for mobile */
+  .field {
+    padding: 15px 16px; /* Tăng kích thước vùng nhập */
+  }
+
+  .input-field {
+    font-size: 16px; /* Cỡ chữ 16px để dễ đọc và tránh iOS tự zoom */
+  }
+
+  .btn button {
+    padding: 14px; /* Nút bấm to hơn */
+    font-size: 1rem;
+  }
 }
 
 
