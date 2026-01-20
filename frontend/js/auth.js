@@ -23,7 +23,6 @@ async function register() {
       body: JSON.stringify({ username, password })
     });
 
-    // Check if response is JSON
     const contentType = res.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
        const text = await res.text();
@@ -68,7 +67,6 @@ async function login() {
       body: JSON.stringify({ username, password })
     });
 
-    // Check if response is JSON
     const contentType = res.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
        const text = await res.text();
@@ -98,4 +96,20 @@ function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("username");
   window.location.href = "login.html";
+}
+
+/* ===== TOGGLE PASSWORD ===== */
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
 }

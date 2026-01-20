@@ -95,6 +95,19 @@ body {
   background: #1f1f1f;
   border-radius: 12px;
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+  margin-bottom: 20px; /* Tăng khoảng cách giữa các ô */
+}
+
+/* Password Toggle Icon */
+.toggle-password {
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s;
+}
+
+.toggle-password:hover {
+  color: #ffffff;
 }
 
 .input-icon {
