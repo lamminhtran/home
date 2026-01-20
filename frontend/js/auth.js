@@ -23,6 +23,14 @@ async function register() {
       body: JSON.stringify({ username, password })
     });
 
+    // Check if response is JSON
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+       const text = await res.text();
+       console.error("Non-JSON Response", text);
+       throw new Error(`Server Error (${res.status}): ${text.substring(0, 100)}...`);
+    }
+
     const data = await res.json();
 
     if (!res.ok) {
@@ -30,8 +38,6 @@ async function register() {
       return;
     }
 
-    // Auto login or just redirect?
-    // Let's create token and login immediately as per backend logic returning token
     localStorage.setItem("token", data.token);
     localStorage.setItem("username", username);
     
@@ -39,7 +45,7 @@ async function register() {
     window.location.href = "dashboard.html";
   } catch (err) {
     console.error(err);
-    alert("Lỗi kết nối server");
+    alert("Lỗi: " + err.message);
   }
 }
 
@@ -62,6 +68,14 @@ async function login() {
       body: JSON.stringify({ username, password })
     });
 
+    // Check if response is JSON
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+       const text = await res.text();
+       console.error("Non-JSON Response", text);
+       throw new Error(`Server Error (${res.status}): ${text.substring(0, 100)}...`);
+    }
+
     const data = await res.json();
 
     if (!res.ok) {
@@ -75,7 +89,7 @@ async function login() {
     window.location.href = "dashboard.html";
   } catch (err) {
     console.error(err);
-    alert("Lỗi kết nối server");
+    alert("Lỗi: " + err.message);
   }
 }
 
