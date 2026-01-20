@@ -344,16 +344,28 @@ function renderTableWithFilters() {
 
 function renderTable(list = state.expenses) {
   const tbody = $("#expenseBody");
+  const cardContainer = $("#expenseCards");
+  
   tbody.innerHTML = "";
+  cardContainer.innerHTML = "";
 
   if (!list.length) {
     tbody.innerHTML = `<tr class="empty-row"><td colspan="5">Chưa có chi phí</td></tr>`;
+    cardContainer.innerHTML = `
+        <div class="no-expenses">
+            <i class="fas fa-receipt"></i>
+            <p>Chưa có chi phí nào</p>
+            <button class="btn-add-expense" onclick="openExpenseModal()">
+                <i class="fas fa-plus"></i> Thêm mới
+            </button>
+        </div>
+    `;
     return;
   }
 
+  // Render Table (Desktop)
   list.forEach(e => {
     const row = document.createElement("tr");
-    // Important: Escape ID with quotes because it's a string now!
     row.innerHTML = `
       <td>${e.date}</td>
       <td><span class="expense-category category-${e.category}">${labelOf(e.category)}</span></td>
@@ -365,6 +377,42 @@ function renderTable(list = state.expenses) {
       </td>
     `;
     tbody.appendChild(row);
+  });
+
+  // Render Cards (Mobile)
+  list.forEach(e => {
+      const card = document.createElement("div");
+      card.className = "expense-card";
+      card.innerHTML = `
+        <div class="expense-card-header">
+            <div class="expense-card-title">${escapeHtml(e.desc)}</div>
+            <span class="expense-card-category category-${e.category}">${labelOf(e.category)}</span>
+        </div>
+        <div class="expense-card-details">
+            <div class="expense-card-detail">
+                <span class="detail-label">Ngày:</span>
+                <span class="detail-value">${e.date}</span>
+            </div>
+            <div class="expense-card-detail">
+                <span class="detail-label">Số tiền:</span>
+                <span class="detail-value" style="color: var(--primary); font-size: 1.1rem;">${formatMoney(e.amount)}</span>
+            </div>
+            ${e.notes ? `
+            <div class="expense-card-detail">
+                <span class="detail-label">Ghi chú:</span>
+                <span class="detail-value">${escapeHtml(e.notes)}</span>
+            </div>` : ""}
+        </div>
+        <div class="expense-card-actions">
+            <button class="btn-action btn-edit" onclick="editExpense('${e.id}')">
+                <i class="fas fa-pen"></i> Sửa
+            </button>
+            <button class="btn-action btn-delete" onclick="removeExpense('${e.id}')">
+                <i class="fas fa-trash"></i> Xóa
+            </button>
+        </div>
+      `;
+      cardContainer.appendChild(card);
   });
 }
 
@@ -467,5 +515,16 @@ function renderCategoryChart() {
 }
 
 function togglePanel() {
-  document.querySelector(".left-panel").classList.toggle("active");
+  const panel = document.querySelector(".left-panel");
+  const overlay = document.querySelector(".menu-overlay");
+  
+  panel.classList.toggle("active");
+  
+  if (overlay) {
+      if (panel.classList.contains("active")) {
+          overlay.classList.add("active");
+      } else {
+          overlay.classList.remove("active");
+      }
+  }
 }

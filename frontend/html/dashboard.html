@@ -16,15 +16,19 @@
 
     <!-- HEADER -->
     <header class="header">
+        <button class="menu-toggle" onclick="togglePanel()">
+            <i class="fas fa-bars"></i>
+        </button>
+
         <div class="logo">
             <i class="fas fa-home"></i>
-            <h1>Quản lý chi phí xây nhà</h1>
+            <h1>Quản lý chi phí</h1>
         </div>
 
         <div class="budget-info">
             <div class="budget-card">
                 <span class="budget-label">Tổng ngân sách</span>
-                <span class="budget-amount total-budget">700,000,000 ₫</span>
+                <span class="budget-amount total-budget">0 ₫</span>
                 <button class="btn-edit-mini" onclick="openBudgetModal()" title="Sửa ngân sách"><i class="fas fa-pen"></i></button>
             </div>
             <div class="budget-card">
@@ -33,28 +37,33 @@
             </div>
             <div class="budget-card">
                 <span class="budget-label">Còn lại</span>
-                <span class="budget-amount remaining-amount">700,000,000 ₫</span>
-            </div>
-            <!--nút đăng xuất--> 
-            
-            <div class="header-actions">
-                <button class="btn-logout" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
-                </button>
+                <span class="budget-amount remaining-amount">0 ₫</span>
             </div>
         </div>
-        <button class="btn-toggle-panel" onclick="togglePanel()">
-            <i class="fas fa-bars"></i>
-        </button>
 
+        <div class="header-actions">
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+        </div>
     </header>
 
     <!-- MAIN -->
     <main class="main-content">
 
+        <!-- Mobile Menu Overlay -->
+        <div class="menu-overlay" onclick="togglePanel()"></div>
+
         <!-- LEFT -->
         <div class="left-panel">
-            <h2><i class="fas fa-layer-group"></i> Hạng mục</h2>
+            <div class="mobile-panel-header">
+                <h2>Menu</h2>
+                <button class="btn-close-panel" onclick="togglePanel()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <h2 class="panel-title"><i class="fas fa-layer-group"></i> Hạng mục</h2>
 
             <div class="category-list">
                 <div class="category-item" data-category="construction">
@@ -102,7 +111,8 @@
                 </div>
             </div>
 
-            <button class="btn-add-expense" onclick="openExpenseModal()"> <i class="fas fa-plus"></i> Thêm chi phí</button>
+            <button class="panel-btn btn-add-expense" onclick="openExpenseModal()"> <i class="fas fa-plus"></i> Thêm chi phí</button>
+            <button class="panel-btn btn-logout" onclick="logout()" style="margin-top: 10px; width: 100%;"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
         </div>
 
         <!-- RIGHT -->
@@ -122,6 +132,11 @@
                     <input type="month" id="month-filter" class="filter-select" />
                     <button onclick="clearFilters()" class="btn-clear-filter">Xóa filter</button>
                 </div>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="expense-cards" id="expenseCards">
+                <!-- Cards will be rendered here by JS -->
             </div>
 
             <div class="expense-table-container">
@@ -267,6 +282,11 @@
         </div>
     </div>
 </div>
+
+<!-- Mobile FAB -->
+<button class="mobile-fab" onclick="openExpenseModal()">
+    <i class="fas fa-plus"></i>
+</button>
 
 <!-- Notification -->
 <div id="notification" class="notification"></div>
