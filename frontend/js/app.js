@@ -41,6 +41,9 @@ function authHeader() {
 
 // ---------- API FUNCTIONS ----------
 async function fetchData() {
+  const loader = document.getElementById("loadingOverlay");
+  if (loader) loader.style.display = "flex";
+
   try {
     const res = await fetch(`${CONFIG.API_URL}/data`, {
       headers: { "Authorization": "Bearer " + token }
@@ -59,6 +62,8 @@ async function fetchData() {
   } catch (err) {
     console.error(err);
     showNotification("Lỗi tải dữ liệu", "error");
+  } finally {
+    if (loader) loader.style.display = "none";
   }
 }
 

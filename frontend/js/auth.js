@@ -14,6 +14,9 @@ async function register() {
     return;
   }
 
+    const btn = document.querySelector(".btn-auth");
+    if(btn) btn.classList.add("loading");
+
   try {
     const res = await fetch(`${CONFIG.API_URL}/auth/register`, {
       method: "POST",
@@ -45,6 +48,8 @@ async function register() {
   } catch (err) {
     console.error(err);
     alert("Lỗi: " + err.message);
+  } finally {
+    if(btn) btn.classList.remove("loading");
   }
 }
 
@@ -57,6 +62,9 @@ async function login() {
     alert("Vui lòng nhập đầy đủ thông tin");
     return;
   }
+
+    const btn = document.querySelector(".btn-auth");
+    if(btn) btn.classList.add("loading");
 
   try {
     const res = await fetch(`${CONFIG.API_URL}/auth/login`, {
@@ -88,6 +96,8 @@ async function login() {
   } catch (err) {
     console.error(err);
     alert("Lỗi: " + err.message);
+  } finally {
+    if(btn) btn.classList.remove("loading");
   }
 }
 
