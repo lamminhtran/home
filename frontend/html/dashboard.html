@@ -131,6 +131,9 @@
 
                     <input type="month" id="month-filter" class="filter-select" />
                     <button onclick="clearFilters()" class="btn-clear-filter">Xóa filter</button>
+                    <button onclick="exportToExcel()" class="btn-export-excel" title="Xuất Excel">
+                        <i class="fas fa-file-excel"></i> Xuất Excel
+                    </button>
                 </div>
             </div>
 
@@ -298,6 +301,7 @@
 <div id="notification" class="notification"></div>
 
 <!-- Chart.js -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../js/config.js"></script>
 <script src="../js/app.js"></script>

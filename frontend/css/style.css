@@ -1336,3 +1336,30 @@ body {
     border-top-color: var(--primary);
     animation: spin 1s infinite linear;
 }
+
+/* Excel Export Button */
+.btn-export-excel {
+    padding: 8px 15px;
+    background: linear-gradient(135deg, #218838, #28a745); /* Excel Green */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.btn-export-excel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-export-excel:active {
+    transform: translateY(0);
+}

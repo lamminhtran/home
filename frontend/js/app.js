@@ -443,6 +443,41 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, function(m){ return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m]; });
 }
 
+// ---------- EXPORT EXCEL ----------
+function exportToExcel() {
+  if (!state.expenses || state.expenses.length === 0) {
+      showNotification("Không có dữ liệu để xuất", "info");
+      return;
+  }
+
+  const exportData = state.expenses.map(item => ({
+      "Ngày": item.date,
+      "Hạng mục": labelOf(item.category),
+      "Mô tả": item.desc,
+      "Số tiền": item.amount,
+      "Ghi chú": item.notes || ""
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(exportData);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "ChiPhi");
+
+  // Adjust column width
+  const wscols = [
+      {wch: 15}, // Date
+      {wch: 15}, // Category
+      {wch: 30}, // Desc
+      {wch: 15}, // Amount
+      {wch: 30}  // Notes
+  ];
+  worksheet['!cols'] = wscols;
+
+  const dateStr = new Date().toISOString().slice(0, 10);
+  XLSX.writeFile(workbook, `Chi_Phi_Nha_${dateStr}.xlsx`);
+  
+  showNotification("Đã xuất file Excel thành công", "success");
+}
+
 // ---------- INITIALIZE ----------
 document.addEventListener("DOMContentLoaded", () => {
   fetchData();
