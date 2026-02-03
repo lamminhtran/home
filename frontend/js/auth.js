@@ -36,7 +36,8 @@ async function register() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.msg || "Đăng ký thất bại");
+      // Prioritize Vietnamese message over backend message to ensure localization
+      alert("Đăng ký thất bại: " + (data.msg === "User already exists" ? "Tài khoản đã tồn tại" : "Vui lòng thử lại"));
       return;
     }
 
@@ -85,7 +86,8 @@ async function login() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.msg || "Sai tài khoản hoặc mật khẩu");
+        // Hardcode Vietnamese message for login failure to satisfy user request
+      alert("Tài khoản hoặc mật khẩu không chính xác");
       return;
     }
 

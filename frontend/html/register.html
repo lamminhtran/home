@@ -10,14 +10,14 @@
 <body>
 
 <form class="form" onsubmit="event.preventDefault(); register();">
-  <p id="heading">Sign Up</p>
+  <p id="heading">Đăng Ký</p>
 
   <div class="field">
     <input
       id="reg-username"
       class="input-field"
       type="text"
-      placeholder="Username"
+      placeholder="Tên đăng nhập"
     >
   </div>
 
@@ -26,7 +26,7 @@
       id="reg-password"
       class="input-field"
       type="password"
-      placeholder="Password"
+      placeholder="Mật khẩu"
     >
     <i class="fas fa-eye toggle-password" onclick="togglePassword('reg-password', this)"></i>
   </div>
@@ -36,15 +36,15 @@
       id="reg-confirm"
       class="input-field"
       type="password"
-      placeholder="Confirm Password"
+      placeholder="Nhập lại mật khẩu"
     >
     <i class="fas fa-eye toggle-password" onclick="togglePassword('reg-confirm', this)"></i>
   </div>
 
   <div class="btn">
-    <button class="button1" type="submit">Register</button>
+    <button class="button1" type="submit">Đăng ký</button>
     <button class="button2" type="button" onclick="location.href='login.html'">
-      Login
+      Đăng nhập
     </button>
   </div>
 </form>
