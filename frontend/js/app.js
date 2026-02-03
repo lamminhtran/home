@@ -445,12 +445,20 @@ function escapeHtml(str){
 
 // ---------- EXPORT EXCEL ----------
 function exportToExcel() {
-  if (!state.expenses || state.expenses.length === 0) {
-      showNotification("Không có dữ liệu để xuất", "info");
+  const catFilter = $("#category-filter").value;
+  const monthFilter = $("#month-filter").value;
+  
+  let list = state.expenses.slice();
+
+  if (catFilter && catFilter !== "all") list = list.filter(x => x.category === catFilter);
+  if (monthFilter) list = list.filter(x => x.date && x.date.slice(0,7) === monthFilter);
+
+  if (!list || list.length === 0) {
+      showNotification("Không có dữ liệu để xuất (theo bộ lọc hiện tại)", "info");
       return;
   }
 
-  const exportData = state.expenses.map(item => ({
+  const exportData = list.map(item => ({
       "Ngày": item.date,
       "Hạng mục": labelOf(item.category),
       "Mô tả": item.desc,
